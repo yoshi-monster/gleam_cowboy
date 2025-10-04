@@ -9,7 +9,8 @@ import gleam/list
 import gleam/option.{type Option, None, Some}
 import gleam/result
 
-type CowboyRequest
+@internal
+pub type CowboyRequest
 
 @external(erlang, "gleam_cowboy_native", "start_link")
 fn erlang_start_link(
@@ -107,7 +108,8 @@ fn cowboy_format_headers(headers: List(Header)) -> Dict(String, Dynamic) {
 @external(erlang, "gleam_cowboy_native", "to_dynamic")
 fn to_dynamic(value: any) -> Dynamic
 
-fn service_to_handler(
+@internal
+pub fn service_to_handler(
   service: fn(Request(BitArray)) -> Response(BytesTree),
 ) -> fn(CowboyRequest) -> CowboyRequest {
   fn(request) {
